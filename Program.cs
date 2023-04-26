@@ -1,3 +1,5 @@
+using Adfs_Poc_API;
+using Adfs_Poc_API.Entity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Web;
@@ -11,19 +13,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
+//var bindSwaggerAdSettings = new SwaggerAzureAdSettings();
+//builder.Configuration.Bind("SwaggerAzureAd", bindSwaggerAdSettings);
+//SwaggerConfig.SwaggerConfigurations(builder.Services, builder.Configuration, bindSwaggerAdSettings);
+
 var devCorsPolicy = "devCorsPolicy";
 builder.Services.AddCors(options => { options.AddPolicy(devCorsPolicy, builder => { builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); }); });
 
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy(name: "AllowOrigin",
-//        builder =>
-//        {
-//            builder.WithOrigins("https://localhost:7299")
-//                                .AllowAnyHeader()
-//                                .AllowAnyMethod();
-//        });
-//});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
